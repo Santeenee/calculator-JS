@@ -28,11 +28,9 @@ body {
 /* calculator container */
 .calculator-container {
 	width: var(--calc-width);
-	/* min-height: 200px; */
 
 	display: flex;
 	flex-flow: column nowrap;
-	/* gap: 1rem; */
 
 	background-color: hsl(0, 0%, 0%);
 	border-radius: 1.75rem;
@@ -41,7 +39,7 @@ body {
 }
 
 .screen {
-	min-height: 7rem;
+	min-height: 6.5rem;
 	padding: 1.3rem;
 	padding-bottom: 0;
 
