@@ -1,12 +1,9 @@
 let btns = document.querySelectorAll('button')
 const screenP = document.querySelector('p')
-let commaFlag = true
-
 
 function printNumber(text) {
   if (text === 'AC') {
     screenP.textContent = '0'
-    commaFlag = true
     return
   }
 
@@ -16,7 +13,6 @@ function printNumber(text) {
   }
 
   if (text === ',' && screenP.textContent.includes(',')) {
-    commaFlag = false
     return
   }
 
