@@ -1,0 +1,156 @@
+:root {
+	--calc-width: 17.6rem;
+
+	/* assets */
+	--divide: url(/assets/divide-solid.svg);
+	--xmark: url(/assets/xmark-solid.svg);
+	--minus: url(/assets/minus-solid.svg);
+	--plus: url(/assets/plus-solid.svg);
+	--equals: url(/assets/equals-solid.svg);
+}
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* calculator container */
+.calculator-container {
+	width: var(--calc-width);
+	/* min-height: 200px; */
+
+	display: flex;
+	flex-flow: column nowrap;
+	/* gap: 1rem; */
+
+	background-color: hsl(0, 0%, 0%);
+	border-radius: 1.75rem;
+
+	overflow: hidden;
+}
+
+.screen {
+	min-height: 7rem;
+	padding: 1.3rem;
+	padding-bottom: 0;
+
+	display: flex;
+	justify-content: end;
+	align-items: flex-end;
+
+	color: white;
+}
+
+.screen > p {
+	line-height: 1;
+	font-size: 3em;
+}
+
+.buttons {
+	display: flex;
+	flex-flow: row nowrap;
+	gap: 1rem;
+	padding: 1.3rem;
+}
+
+#ac {
+	min-width: 11rem;
+	background-color: hsl(0 0% 50%);
+	color: black;
+}
+
+#ac:hover {
+	background-color: hsl(0 0% 70%);
+}
+
+.numbers {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+#num0 {
+	padding-left: 1rem;
+	min-width: 7rem;
+	text-align: left;
+}
+
+.operators {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.operators > button {
+	background-color: hsl(43, 100%, 50%);
+	/* padding: 0.5rem; */
+	display: grid;
+	place-content: center;
+	place-items: center;
+}
+
+.operators > button:hover {
+	background-color: hsl(43, 100%, 80%);
+}
+
+i {
+	min-width: 18px;
+	min-height: 18px;
+	aspect-ratio: 1;
+	background-size: contain; /* cover? */
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: var(--divide);
+}
+
+#mult > i {
+	background-image: var(--xmark);
+}
+
+#sub > i {
+	background-image: var(--minus);
+}
+
+#add > i {
+	background-image: var(--plus);
+}
+
+#equals > i {
+	background-image: var(--equals);
+}
+
+button {
+	min-width: 3rem;
+	height: 3rem;
+
+	border: none;
+	border-radius: 100px;
+
+	font-size: 1.3em;
+	user-select: none;
+	cursor: pointer;
+
+	background-color: hsl(0 0% 20%);
+	color: white;
+	transition: 200ms;
+}
+
+button:hover {
+	background-color: hsl(0 0% 40%);
+	transition: 200ms;
+}
