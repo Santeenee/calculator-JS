@@ -42,7 +42,7 @@ function printNumber(text) {
   screenP.textContent += text
 }
 
-function storeOperation(btnId) {
+function makeOperation(btnId) {
   arr.push(Number(screenP.textContent)) //! can be NaN
 
   if (arr[arr.length - 2]) {
@@ -56,13 +56,26 @@ function storeOperation(btnId) {
       let result = (arr[arr.length - 2] / arr[arr.length - 1]).toFixed(4)
       console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
 
-      //* solve this
-      result = toString(result)
-      if (result.slice(-4) == '0000') {
-        result = Number(result.slice(0, -5))
-        console.log(result)
-      }
-      result = Number(result)
+      //* solve this .0000 (using slice?)
+      // result = toString(result)
+      // if (result.slice(-4) == '0000') {
+      //   result = Number(result.slice(0, -5))
+      //   console.log(result)
+      // } else {
+      //   result = Number(result)
+      // }
+      screenP.textContent = result
+    } else if (lastOperation === 'mult') {
+      let result = (arr[arr.length - 2] * arr[arr.length - 1]).toFixed(4)
+      console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
+      screenP.textContent = result
+    } else if (lastOperation === 'sub') {
+      let result = (arr[arr.length - 2] - arr[arr.length - 1]).toFixed(4)
+      console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
+      screenP.textContent = result
+    } else if (lastOperation === 'add') {
+      let result = (arr[arr.length - 2] + arr[arr.length - 1]).toFixed(4)
+      console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
       screenP.textContent = result
     }
   }
@@ -99,7 +112,7 @@ for (i = 0; i < btns.length; i++) {
       if (btn.classList.contains('number')) {
         printNumber(btn.textContent)
       } else if (btn.classList.contains('operation')) {
-        storeOperation(btn.id)
+        makeOperation(btn.id)
       } else {
         console.log(`btn not found, btnId: ${btn.id}`)
       }
@@ -109,3 +122,7 @@ for (i = 0; i < btns.length; i++) {
 
   })
 }
+
+// addEventListener('keypress', e => {
+//   let key = e.key || String.fromCharCode(e.keyCode)
+// })
