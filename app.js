@@ -8,6 +8,7 @@ function reset() {
   screenP.textContent = '0'
   arr = []
   lastOperation = ''
+  console.clear()
 }
 
 function printNumber(text) {
@@ -53,7 +54,10 @@ function makeOperation(btnId) {
       // toFixed doesn't solve this
       // Exampe:
       // 4 -> 4.0000 (ugly)
-      let result = (arr[arr.length - 2] / arr[arr.length - 1]).toFixed(4)
+      let result = arr[arr.length - 2] / arr[arr.length - 1]
+      if (!Number.isInteger(result)) {
+        result = result.toFixed(4)
+      }
       console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
 
       //* solve this .0000 (using slice?)
@@ -66,16 +70,25 @@ function makeOperation(btnId) {
       // }
       screenP.textContent = result
     } else if (lastOperation === 'mult') {
-      let result = (arr[arr.length - 2] * arr[arr.length - 1]).toFixed(4)
-      console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
+      let result = arr[arr.length - 2] * arr[arr.length - 1]
+      if (!Number.isInteger(result)) {
+        result = result.toFixed(4)
+      }
+      console.log(`${arr[arr.length - 2]} * ${arr[arr.length - 1]} = ${result}`)
       screenP.textContent = result
     } else if (lastOperation === 'sub') {
-      let result = (arr[arr.length - 2] - arr[arr.length - 1]).toFixed(4)
-      console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
+      let result = arr[arr.length - 2] - arr[arr.length - 1]
+      if (!Number.isInteger(result)) {
+        result = result.toFixed(4)
+      }
+      console.log(`${arr[arr.length - 2]} - ${arr[arr.length - 1]} = ${result}`)
       screenP.textContent = result
     } else if (lastOperation === 'add') {
-      let result = (arr[arr.length - 2] + arr[arr.length - 1]).toFixed(4)
-      console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
+      let result = arr[arr.length - 2] + arr[arr.length - 1]
+      if (!Number.isInteger(result)) {
+        result = result.toFixed(4)
+      }
+      console.log(`${arr[arr.length - 2]} + ${arr[arr.length - 1]} = ${result}`)
       screenP.textContent = result
     }
   }
