@@ -157,3 +157,8 @@ window.addEventListener('keyup', e => {
   if (key == '+') makeOperation('add')
   if (key == '=' || key == 'Enter') makeOperation('equals')
 })
+
+// ios stuff
+document.addEventListener(
+  'gesturestart', (e) => e.preventDefault()
+);

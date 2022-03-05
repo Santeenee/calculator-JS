@@ -27,7 +27,7 @@ body {
 	min-height: 100vh;
 
 	/* ios stuff*/
-	touch-action: none;
+	overflow: hidden;
 
 	display: flex;
 	justify-content: center;
