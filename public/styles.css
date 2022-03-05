@@ -26,6 +26,9 @@
 body {
 	min-height: 100vh;
 
+	/* ios stuff*/
+	touch-action: pan-x pan-y;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
