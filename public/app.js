@@ -1,50 +1,52 @@
 let btns = document.querySelectorAll('button')
-const screenP = document.querySelector('p')
+const mainP = document.querySelector('#main-paragraph')
+const secondaryP = document.querySelector('#show-operation-paragraph')
 
 let arr = []
 let lastOperation = ''
 
 function reset() {
-  screenP.textContent = '0'
+  mainP.textContent = '0'
+  secondaryP.textContent = ''
   arr = []
   lastOperation = ''
   console.clear()
 }
 
 function printNumber(text) {
-  if (text === 'AC') {
+  if (text === 'AC' || text == 'Backspace' || text == 'Delete' || text == 'Escape') {
     reset()
     return
   }
 
   if (lastOperation != '') {
-    arr.push(Number(screenP.textContent)) //! can be NaN
-    screenP.textContent = ''
+    arr.push(Number(mainP.textContent)) //! can be NaN
+    mainP.textContent = ''
   }
 
-  if (text === ',') text = '.' //if user uses keyboard... next feature ;)
+  if (text === ',') text = '.'
 
-  if (text === '.' && screenP.textContent === '0') {
-    screenP.textContent = '0.'
+  if (text === '.' && (mainP.textContent === '0' || mainP.textContent === '')) {
+    mainP.textContent = '0.'
     return
   }
 
-  if (screenP.textContent === '0') {
-    screenP.textContent = text
+  if (mainP.textContent === '0') {
+    mainP.textContent = text
     return
   }
 
-  if (text === '.' && screenP.textContent.includes('.')) {
+  if (text === '.' && mainP.textContent.includes('.')) {
     return
   }
 
-  if (screenP.textContent.length === 9) return
+  if (mainP.textContent.length === 9) return
 
-  screenP.textContent += text
+  mainP.textContent += text
 }
 
 function makeOperation(btnId) {
-  arr.push(Number(screenP.textContent)) //! can be NaN
+  arr.push(Number(mainP.textContent)) //! can be NaN
 
   if (arr[arr.length - 2]) {
     if (lastOperation === 'div') {
@@ -58,7 +60,8 @@ function makeOperation(btnId) {
       if (!Number.isInteger(result)) {
         result = result.toFixed(4)
       }
-      console.log(`${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`)
+      mainP.textContent = result
+      secondaryP.textContent = `${arr[arr.length - 2]} / ${arr[arr.length - 1]} = ${result}`
 
       //* solve this .0000 (using slice?)
       // result = toString(result)
@@ -68,28 +71,31 @@ function makeOperation(btnId) {
       // } else {
       //   result = Number(result)
       // }
-      screenP.textContent = result
     } else if (lastOperation === 'mult') {
       let result = arr[arr.length - 2] * arr[arr.length - 1]
+
       if (!Number.isInteger(result)) {
         result = result.toFixed(4)
       }
-      console.log(`${arr[arr.length - 2]} * ${arr[arr.length - 1]} = ${result}`)
-      screenP.textContent = result
+      mainP.textContent = result
+      secondaryP.textContent = `${arr[arr.length - 2]} x ${arr[arr.length - 1]} = ${result}`
+
     } else if (lastOperation === 'sub') {
       let result = arr[arr.length - 2] - arr[arr.length - 1]
+
       if (!Number.isInteger(result)) {
         result = result.toFixed(4)
       }
-      console.log(`${arr[arr.length - 2]} - ${arr[arr.length - 1]} = ${result}`)
-      screenP.textContent = result
+      secondaryP.textContent = `${arr[arr.length - 2]} - ${arr[arr.length - 1]} = ${result}`
+      mainP.textContent = result
+
     } else if (lastOperation === 'add') {
       let result = arr[arr.length - 2] + arr[arr.length - 1]
       if (!Number.isInteger(result)) {
         result = result.toFixed(4)
       }
-      console.log(`${arr[arr.length - 2]} + ${arr[arr.length - 1]} = ${result}`)
-      screenP.textContent = result
+      secondaryP.textContent = `${arr[arr.length - 2]} + ${arr[arr.length - 1]} = ${result}`
+      mainP.textContent = result
     }
   }
 
@@ -112,6 +118,7 @@ function makeOperation(btnId) {
       break;
 
     default:
+      console.warn('what')
       break;
   }
 }
@@ -127,7 +134,7 @@ for (i = 0; i < btns.length; i++) {
       } else if (btn.classList.contains('operation')) {
         makeOperation(btn.id)
       } else {
-        console.log(`btn not found, btnId: ${btn.id}`)
+        console.log(`btn not found, btn: ${btn}`)
       }
     } else {
       console.log('error: ' + btn)
@@ -136,6 +143,17 @@ for (i = 0; i < btns.length; i++) {
   })
 }
 
-// addEventListener('keypress', e => {
-//   let key = e.key || String.fromCharCode(e.keyCode)
-// })
+window.addEventListener('keyup', e => {
+  let key = e.key || String.fromCharCode(e.keyCode)
+  // console.log(key)
+
+  //AC
+  if (key == 'Backspace' || key == 'Delete' || key == 'Escape') printNumber(key)
+
+  if ((key >= 0 && key <= 9) || key == '.' || key == ',') printNumber(key)
+  if (key == '/') makeOperation('div')
+  if (key == '*') makeOperation('mult')
+  if (key == '-') makeOperation('sub')
+  if (key == '+') makeOperation('add')
+  if (key == '=' || key == 'Enter') makeOperation('equals')
+})

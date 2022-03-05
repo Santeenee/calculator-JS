@@ -2,11 +2,11 @@
 	--calc-width: 17.6rem;
 
 	/* assets */
-	--divide: url(/assets/divide-solid.svg);
-	--xmark: url(/assets/xmark-solid.svg);
-	--minus: url(/assets/minus-solid.svg);
-	--plus: url(/assets/plus-solid.svg);
-	--equals: url(/assets/equals-solid.svg);
+	--divide: url(./assets/divide-solid.svg);
+	--xmark: url(./assets/xmark-solid.svg);
+	--minus: url(./assets/minus-solid.svg);
+	--plus: url(./assets/plus-solid.svg);
+	--equals: url(./assets/equals-solid.svg);
 }
 
 *,
@@ -18,24 +18,30 @@
 	font-family: sans-serif;
 }
 
+:focus-visible {
+	outline: 2px solid white;
+	outline-offset: 2px;
+}
+
 body {
 	min-height: 100vh;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-/* calculator container */
 .calculator-container {
 	width: var(--calc-width);
 
 	display: flex;
 	flex-flow: column nowrap;
 
-	background-color: hsl(0, 0%, 0%);
-	border-radius: 1.75rem;
+	background-color: black;
+	border-radius: 1.5rem;
 
 	overflow: hidden;
+	transition: 400ms;
 }
 
 .screen {
@@ -44,13 +50,19 @@ body {
 	padding-bottom: 0;
 
 	display: flex;
-	justify-content: end;
-	align-items: flex-end;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end; /* 'end' is the same */
 
 	color: white;
 }
 
-.screen > p {
+#show-operation-paragraph {
+	color: hsl(0 0% 75%);
+	font-size: 1.5em;
+}
+
+#main-paragraph {
 	line-height: 1;
 	font-size: 3em;
 }
