@@ -13,14 +13,16 @@ function reset() {
   console.clear()
 }
 
+//! issue -> it doesn't work when you write a number after an operation
 function printNumber(text) {
+  console.log(arr)
   if (text === 'AC' || text == 'Backspace' || text == 'Delete' || text == 'Escape') {
     reset()
     return
   }
 
   if (lastOperation != '') {
-    arr.push(Number(mainP.textContent)) //! can be NaN
+    arr.push(Number(mainP.textContent)) //! can be NaN (NaN is typeof=Number)
     mainP.textContent = ''
   }
 
@@ -91,6 +93,7 @@ function makeOperation(btnId) {
 
     } else if (lastOperation === 'add') {
       let result = arr[arr.length - 2] + arr[arr.length - 1]
+
       if (!Number.isInteger(result)) {
         result = result.toFixed(4)
       }
@@ -139,11 +142,10 @@ for (i = 0; i < btns.length; i++) {
     } else {
       console.log('error: ' + btn)
     }
-
   })
 }
 
-window.addEventListener('keyup', e => {
+document.addEventListener('keyup', e => {
   let key = e.key || String.fromCharCode(e.keyCode)
   // console.log(key)
 
@@ -158,7 +160,7 @@ window.addEventListener('keyup', e => {
   if (key == '=' || key == 'Enter') makeOperation('equals')
 })
 
-// ios stuff
+// ios stuff preventing zoom
 document.addEventListener(
   'gesturestart', (e) => e.preventDefault()
 );
